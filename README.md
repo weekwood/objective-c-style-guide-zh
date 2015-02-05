@@ -54,24 +54,24 @@ Here are some of the documents from Apple that informed the style guide. If some
 * [Xcode Project](#xcode-project)
 
 
-## Language
+## 语言
 
-US English should be used.
+推荐使用跟苹果API文档风格统一的英语。
 
-**Preferred:**
+**推荐:**
 ```objc
 UIColor *myColor = [UIColor whiteColor];
 ```
 
-**Not Preferred:**
+**不推荐:**
 ```objc
 UIColor *myColour = [UIColor whiteColor];
 ```
 
 
-## Code Organization
+## 组织代码
 
-Use `#pragma mark -` to categorize methods in functional groupings and protocol/delegate implementations following this general structure.
+使用 `#pragma mark -` to categorize methods in functional groupings and protocol/delegate implementations following this general structure.
 
 ```objc
 #pragma mark - Lifecycle
@@ -113,12 +113,12 @@ Use `#pragma mark -` to categorize methods in functional groupings and protocol/
 - (NSString *)description {}
 ```
 
-## Spacing
+## 空白
 
 * Indent using 2 spaces (this conserves space in print and makes line wrapping less likely). Never indent with tabs. Be sure to set this preference in Xcode.
-* Method braces and other braces (`if`/`else`/`switch`/`while` etc.) always open on the same line as the statement but close on a new line.
+* 方法定义时的大括号或其它大括号 (`if`/`else`/`switch`/`while` 等) 中的左括号写在当前语句的结尾，右括号需要另起一行。
 
-**Preferred:**
+**推荐:**
 ```objc
 if (user.isHappy) {
   //Do something
@@ -127,7 +127,7 @@ if (user.isHappy) {
 }
 ```
 
-**Not Preferred:**
+**不推荐:**
 ```objc
 if (user.isHappy)
 {
@@ -138,11 +138,11 @@ else {
 }
 ```
 
-* There should be exactly one blank line between methods to aid in visual clarity and organization. Whitespace within methods should separate functionality, but often there should probably be new methods.
+* 方法定义之间需要插入一个空行，让代码在视觉上更清晰，也便于管理。方法内部也需要使用空行来分隔不同功能的代码块，但如果一个方法中有太多代码块，你最好将它们拆分为多个方法（重构）。
 * Prefer using auto-synthesis. But if necessary, `@synthesize` and `@dynamic` should each be declared on new lines in the implementation.
 * Colon-aligning method invocation should often be avoided.  There are cases where a method signature may have >= 3 colons and colon-aligning makes the code more readable. Please do **NOT** however colon align methods containing blocks because Xcode's indenting makes it illegible.
 
-**Preferred:**
+**推荐:**
 
 ```objc
 // blocks are easily readable
@@ -153,7 +153,7 @@ else {
 }];
 ```
 
-**Not Preferred:**
+**不推荐:**
 
 ```objc
 // colon-aligning makes the block indentation hard to read
@@ -166,25 +166,29 @@ else {
                  }];
 ```
 
-## Comments
+## 注释
 
 When they are needed, comments should be used to explain **why** a particular piece of code does something. Any comments that are used must be kept up-to-date or deleted.
 
+只有在必要的时候才写注释来解释某段代码**为什么**那么做。注释必须跟代码同步更新，该删掉时就删掉。
+
 Block comments should generally be avoided, as code should be as self-documenting as possible, with only the need for intermittent, few-line explanations. *Exception: This does not apply to those comments used to generate documentation.*
 
-## Naming
+一般应避免块注释，而是让代码本身去解释自己的功能，仅需要进行间歇性的，少数行解释。*例外： 这个不适用于生成文档。*
+
+## 命名
 
 Apple naming conventions should be adhered to wherever possible, especially those related to [memory management rules](https://developer.apple.com/library/mac/#documentation/Cocoa/Conceptual/MemoryMgmt/Articles/MemoryMgmt.html) ([NARC](http://stackoverflow.com/a/2865194/340508)).
 
 Long, descriptive method and variable names are good.
 
-**Preferred:**
+**推荐:**
 
 ```objc
 UIButton *settingsButton;
 ```
 
-**Not Preferred:**
+**不推荐:**
 
 ```objc
 UIButton *setBut;
@@ -194,13 +198,13 @@ A three letter prefix should always be used for class names and constants, howev
 
 Constants should be camel-case with all words capitalized and prefixed by the related class name for clarity.
 
-**Preferred:**
+**推荐:**
 
 ```objc
 static NSTimeInterval const RWTTutorialViewControllerNavigationFadeAnimationDuration = 0.3;
 ```
 
-**Not Preferred:**
+**不推荐:**
 
 ```objc
 static NSTimeInterval const fadetime = 1.7;
@@ -220,7 +224,7 @@ Properties should be camel-case with the leading word being lowercase. Use auto-
 id varnm;
 ```
 
-### Underscores
+### 下划线
 
 When using properties, instance variables should always be accessed and mutated using `self.`. This means that all properties will be visually distinct, as they will all be prefaced with `self.`. 
 
@@ -228,13 +232,13 @@ An exception to this: inside initializers, the backing instance variable (i.e. _
 
 Local variables should not contain underscores.
 
-## Methods
+## 方法
 
 In method signatures, there should be a space after the method type (-/+ symbol). There should be a space between the method segments (matching Apple's style).  Always include a keyword and be descriptive with the word before the argument which describes the argument.
 
 The usage of the word "and" is reserved.  It should not be used for multiple parameters as illustrated in the `initWithWidth:height:` example below.
 
-**Preferred:**
+**推荐:**
 ```objc
 - (void)setExampleText:(NSString *)text image:(UIImage *)image;
 - (void)sendAction:(SEL)aSelector to:(id)anObject forAllCells:(BOOL)flag;
@@ -242,7 +246,7 @@ The usage of the word "and" is reserved.  It should not be used for multiple par
 - (instancetype)initWithWidth:(CGFloat)width height:(CGFloat)height;
 ```
 
-**Not Preferred:**
+**不推荐:**
 
 ```objc
 -(void)setT:(NSString *)text i:(UIImage *)image;
@@ -252,7 +256,7 @@ The usage of the word "and" is reserved.  It should not be used for multiple par
 - (instancetype)initWith:(int)width and:(int)height;  // Never do this.
 ```
 
-## Variables
+## 变量
 
 Variables should be named as descriptively as possible. Single letter variable names should be avoided except in `for()` loops.
 
@@ -262,7 +266,7 @@ Asterisks indicating pointers belong with the variable, e.g., `NSString *text` n
 
 Direct access to instance variables that 'back' properties should be avoided except in initializer methods (`init`, `initWithCoder:`, etc…), `dealloc` methods and within custom setters and getters. For more information on using Accessor Methods in Initializer Methods and dealloc, see [here](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmPractical.html#//apple_ref/doc/uid/TP40004447-SW6).
 
-**Preferred:**
+**推荐:**
 
 ```objc
 @interface RWTTutorial : NSObject
@@ -272,7 +276,7 @@ Direct access to instance variables that 'back' properties should be avoided exc
 @end
 ```
 
-**Not Preferred:**
+**不推荐:**
 
 ```objc
 @interface RWTTutorial : NSObject {
@@ -669,7 +673,7 @@ if (error) {
 Some of Apple’s APIs write garbage values to the error parameter (if non-NULL) in successful cases, so switching on the error can cause false negatives (and subsequently crash).
 
 
-## Singletons
+## 单例
 
 Singleton objects should use a thread-safe pattern for creating their shared instance.
 ```objc
